@@ -167,7 +167,8 @@ return [
          * Package Service Providers...
          */
 
-        //
+        Spatie\Menu\Laravel\MenuServiceProvider::class,
+
 
         /*
          * Application Service Providers...
@@ -243,6 +244,10 @@ return [
          */
         'AdminLTE' => Acacha\AdminLTETemplateLaravel\Facades\AdminLTE::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Menu' => Spatie\Menu\Laravel\MenuFacade::class,
+        'Link' => Spatie\Menu\Laravel\Link::class,
+        'Html' => Spatie\Menu\Laravel\Html::class,
+
         #llum_aliases
 
     ],
