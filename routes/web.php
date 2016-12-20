@@ -25,3 +25,30 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('tasks', 'TasksController@index')->name('tasks');
 
 });
+
+Route::get('/redirect', function () {
+    $query = http_build_query([
+        'client_id' => '81',
+        'redirect_uri' => 'http://localhost:8002/auth/callback',
+        'response_type' => 'code',
+        'scope' => '',
+    ]);
+
+    return redirect('http://localhost:8001/oauth/authorize?'.$query);
+});
+
+Route::get('/auth/callback', function () {
+    $http = new GuzzleHttp\Client;
+
+    $response = $http->post('http://localhost:8001/oauth/token', [
+        'form_params' => [
+            'grant_type' => 'authorization_code',
+            'client_id' => '81',
+            'client_secret' => 'a3Qd1rdlDXRjDw4B6yQQMLOzWOBvfPzVRDYXFaeB',
+            'redirect_uri' => 'http://localhost:8002/auth/callback',
+            'code' => Request::input('code'),
+        ],
+    ]);
+
+    return json_decode((string) $response->getBody(), true);
+});
