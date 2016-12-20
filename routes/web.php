@@ -38,6 +38,7 @@ Route::get('/redirect', function () {
 });
 
 Route::get('/auth/callback', function () {
+
     $http = new GuzzleHttp\Client;
 
     $response = $http->post('http://localhost:8001/oauth/token', [
