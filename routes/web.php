@@ -26,47 +26,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 
-Route::get('/redirect', function () {
-    $query = http_build_query([
-        'client_id' => '2',
-        'redirect_uri' => 'http://oauthclient.dev:8080/auth/callback',
-        'response_type' => 'code',
-        'scope' => '',
-    ]);
+Route::get('/redirect', 'OauthController@redirect');
 
-    return redirect('http://localhost:8000/oauth/authorize?'.$query);
-});
-
-Route::get('/auth/callback', function () {
-
-    $http = new GuzzleHttp\Client;
-
-    $response = $http->post('http://localhost:8000/oauth/token', [
-        'form_params' => [
-            'grant_type' => 'authorization_code',
-            'client_id' => '2',
-            'client_secret' => 'shxYoRL9xqEuvRFWR0xW8UWBocRbV8H6RY9huJch',
-            'redirect_uri' => 'http://oauthclient.dev:8080/auth/callback',
-            'code' => Request::input('code'),
-        ],
-    ]);
-
-    $json = json_decode((string) $response->getBody(), true);
-
-    $access_token = $json['access_token'];
-
-    //TODO guardar tokens en persistència (base de dades)
-    //SERVER: guardar a base de dades ok!
-    //Client: app mòbil
-
-    $response2 = $http->get('http://localhost:8000/api/v1/task', [
-        'headers' => [
-            'X-Requested-With' => 'XMLHttpRequest',
-            'Authorization' => 'Bearer '.$access_token
-        ],
-    ]);
-
-    $json2 = json_decode((string) $response2->getBody(), true);
-
-    dd($json2);
-});
+Route::get('/auth/callback','OauthController@callback');
