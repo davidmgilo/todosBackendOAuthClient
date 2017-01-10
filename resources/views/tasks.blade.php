@@ -6,5 +6,8 @@
 
 
 @section('main-content')
+	<script>
+		window.access_token = {{ $access_token }};
+	</script>
 	<todos></todos>
 @endsection

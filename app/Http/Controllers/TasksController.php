@@ -13,7 +13,10 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $data = [];
+        $access_token = "TODO"; //TODO
+        $data = [
+            "access_token" => $access_token
+        ];
         return view('tasks',$data);
     }
 
