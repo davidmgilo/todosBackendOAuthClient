@@ -24,8 +24,8 @@ class OauthController extends Controller
     public function redirect_implicit()
     {
         $query = http_build_query([
-            'client_id' => '2',
-            'redirect_uri' => 'http://localhost/auth/callback',
+            'client_id' => '3',
+            'redirect_uri' => 'http://oauthclient.dev:8081/implicit',
             'response_type' => 'token', //implicit
             'scope' => '',
         ]);
