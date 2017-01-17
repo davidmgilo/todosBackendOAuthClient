@@ -13,7 +13,7 @@
 					<div class="panel-heading">Change Header</div>
 					<div class="panel-body">
 
-						Token: <input type="text" name="token">
+						Token: <input type="text" name="token" id ="inp">
 
 					</div>
 				</div>
@@ -25,10 +25,12 @@
 		var extractToken = function (hash) {
 			var match = hash.match(/access_token=(\w+)/);
 			return !!match && match[1];
-		}
+		};
 
 		console.log("Prova!");
-		console.log(extractToken(document.location.hash));
+		var token = extractToken(document.location.hash);
+		console.log(token);
+		document.getElementById('inp').value = token;
 	</script>
 
 @endsection
