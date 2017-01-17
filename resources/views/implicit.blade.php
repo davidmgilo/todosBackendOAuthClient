@@ -12,10 +12,18 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Change Header</div>
 					<div class="panel-body">
-						Change content here!
+
+						Token: <input type="text" name="token">
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<script>
+		console.log("Prova!");
+		console.log(document.location.hash);
+	</script>
+
 @endsection
