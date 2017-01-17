@@ -28,4 +28,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/redirect', 'OauthController@redirect');
 
+Route::get('/redirect_implicit', 'OauthController@redirect_implicit');
+
 Route::get('/auth/callback','OauthController@callback');

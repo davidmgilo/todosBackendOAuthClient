@@ -12,12 +12,25 @@ class OauthController extends Controller
     {
             $query = http_build_query([
                 'client_id' => '2',
-                'redirect_uri' => 'http://oauthclient.dev:8080/auth/callback',
+                'redirect_uri' => 'http://oauthclient.dev:8081/auth/callback',
                 'response_type' => 'code',
                 'scope' => '',
             ]);
 
-            return redirect('http://localhost:8000/oauth/authorize?'.$query);
+            return redirect('http://todos.dev:8080/oauth/authorize?'.$query);
+
+    }
+
+    public function redirect_implicit()
+    {
+        $query = http_build_query([
+            'client_id' => '2',
+            'redirect_uri' => 'http://localhost/auth/callback',
+            'response_type' => 'token', //implicit
+            'scope' => '',
+        ]);
+
+        return redirect('http://todos.dev:8080/oauth/authorize?'.$query);
 
     }
 
@@ -26,12 +39,12 @@ class OauthController extends Controller
 
             $http = new Client;
 
-            $response = $http->post('http://localhost:8000/oauth/token', [
+            $response = $http->post('http://todos.dev:8080/oauth/token', [
                 'form_params' => [
                     'grant_type' => 'authorization_code',
                     'client_id' => '2',
                     'client_secret' => 'shxYoRL9xqEuvRFWR0xW8UWBocRbV8H6RY9huJch',
-                    'redirect_uri' => 'http://oauthclient.dev:8080/auth/callback',
+                    'redirect_uri' => 'http://oauthclient.dev:8081/auth/callback',
                     'code' => $request->input('code'),
                 ],
             ]);
@@ -44,7 +57,7 @@ class OauthController extends Controller
             //SERVER: guardar a base de dades ok!
             //Client: app mòbil
 
-            $response2 = $http->get('http://localhost:8000/api/v1/task', [
+            $response2 = $http->get('http://todos.dev:8080/api/v1/task', [
                 'headers' => [
                     'X-Requested-With' => 'XMLHttpRequest',
                     'Authorization' => 'Bearer '.$access_token
